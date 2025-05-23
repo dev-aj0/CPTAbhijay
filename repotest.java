@@ -8,5 +8,7 @@ public class repotest{
 		con.println("CPT Time!");
 		con.println("Hello");
 		con.println("Bye");
+		con.println("No");
+		con.println("Yes");
 	}
 }
