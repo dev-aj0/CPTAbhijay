@@ -1,16 +1,18 @@
 import arc.*;
 
 public class Main {
-    static Console con = new Console();
+    static Console con = new Console("Hangman by AJ", 1280, 720);
 
     public static void main(String[] args) {
+        
         while (true) {
             con.clear();
             con.println("=== HANGMAN ===");
             con.println("1. Play Game");
             con.println("2. View Leaderboard");
             con.println("3. Add Theme");
-            con.println("4. Quit");
+            con.println("4. Help");
+            con.println("5. Quit");
             con.print("Enter choice: ");
             int intChoice = con.readInt();
 
@@ -21,9 +23,27 @@ public class Main {
             } else if (intChoice == 3) {
                 addTheme();
             } else if (intChoice == 4) {
+                showHelp();
+            } else if (intChoice == 5) {
                 break;
             }
         }
+    }
+
+    static void showHelp() {
+        con.clear();
+        con.println("=== HOW TO PLAY HANGMAN ===");
+        con.println("1. Choose a theme from the available options");
+        con.println("2. You will be shown a word with letters hidden as underscores");
+        con.println("3. Try to guess the word by typing it in");
+        con.println("4. Each wrong guess adds a body part to the hangman");
+        con.println("5. You lose if the hangman is completed (6 body parts)");
+        con.println("6. You win if you guess the word correctly");
+        con.println("\nSpecial Features:");
+        con.println("- If you type 'statitan' as your guess, you get a free letter!");
+        con.println("- Try to get the highest score by guessing multiple words");
+        con.print("\nPress enter to return to main menu...");
+        con.readLine();
     }
 
     static void playGame() {
@@ -88,8 +108,14 @@ public class Main {
                 con.readLine();
                 return true;
             } else {
-                strExposed = exposeRandomLetter(strWord, strExposed);
-                intBodyParts++;
+                if (strGuess.equalsIgnoreCase("statitan")) {
+                    strExposed = exposeRandomLetter(strWord, strExposed);
+                    con.println("Special word detected! You get a free letter!");
+                    con.readLine();
+                } else {
+                    strExposed = exposeRandomLetter(strWord, strExposed);
+                    intBodyParts++;
+                }
             }
         }
 
