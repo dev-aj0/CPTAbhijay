@@ -25,7 +25,7 @@ public class Main {
             } else if (intChoice == 4) {
                 showHelp();
             } else if (intChoice == 5) {
-                break;
+                System.exit(0);
             }
         }
     }
