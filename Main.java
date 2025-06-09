@@ -35,7 +35,11 @@ public class Main {
             } else if (intChoice == 4) {
                 showHelp();
             } else if (intChoice == 5) {
-                System.exit(0);
+                con.println("\nAre you sure you want to quit? Press 'q' to confirm.");
+                String quitConfirm = con.readLine();
+                if (quitConfirm.equalsIgnoreCase("q")) {
+                    System.exit(0);
+                }
             }
         }
     }
@@ -52,14 +56,21 @@ public class Main {
         con.println("\nSpecial Features:");
         con.println("- If you type 'statitan' as your guess, you get a free letter!");
         con.println("- Try to get the highest score by guessing multiple words");
-        con.print("\nPress enter to return to main menu...");
-        con.readLine();
+        con.println("- Type 'B' at any time to go back to the main menu");
+        con.print("\n Enter 'b' to go back ");
+        String input = con.readLine();
+        if (input.equalsIgnoreCase("B")) {
+            return;
+        }
     }
     // Method to play the game when the user chooses the play game option
     static void playGame() {
         con.clear();
-        con.print("Enter your name: ");
+        con.print("Enter your name (or 'b' to go back): ");
         String strName = con.readLine();
+        if (strName.equalsIgnoreCase("b")) {
+            return;
+        }
 
         String[] strThemes = loadThemes();
         if (strThemes.length == 0) {
@@ -72,8 +83,11 @@ public class Main {
         for (int intI = 0; intI < strThemes.length; intI++) {
             con.println("- " + strThemes[intI]);
         }
-        con.print("Enter theme filename (e.g., food.txt): ");
+        con.print("Enter theme filename (e.g., food.txt) or 'b' to go back: ");
         String strThemeFile = con.readLine();
+        if (strThemeFile.equalsIgnoreCase("b")) {
+            return;
+        }
         // Calling the loadWords method to load the words from the theme file
         String[][] strWordPairs = loadWords(strThemeFile);
         if (strWordPairs.length == 0) {
@@ -94,6 +108,9 @@ public class Main {
             }
             con.print("Play again? (yes/no): ");
             String strAgain = con.readLine();
+            if (strAgain.equalsIgnoreCase("b")) {
+                return;
+            }
             if (!strAgain.equalsIgnoreCase("yes")) {
                 break;
             }
@@ -230,18 +247,28 @@ public class Main {
         for (int intI = 0; intI < intScoreCount; intI++) {
             con.println(strScores[intI][0] + " - " + strScores[intI][1]);
         }
-        con.print("Press enter to return...");
-        con.readLine();
+        con.print("Press 'b' to go back...");
+        String input = con.readLine();
+        if (input.equalsIgnoreCase("b")) {
+            return;
+        }
     }
 
     static void addTheme() {
         con.clear();
-        con.print("Enter new theme filename (e.g., starwars.txt): ");
+        con.print("Enter new theme filename (e.g., starwars.txt) or 'b' to go back: ");
         String strFile = con.readLine();
+        if (strFile.equalsIgnoreCase("b")) {
+            return;
+        }
         TextOutputFile out = new TextOutputFile(strFile, true);
         while (true) {
-            con.print("Enter a word (or 'stop' to finish): ");
+            con.print("Enter a word (or 'stop' to finish, 'b' to go back): ");
             String strWord = con.readLine();
+            if (strWord.equalsIgnoreCase("b")) {
+                out.close();
+                return;
+            }
             if (strWord.equalsIgnoreCase("stop")) {
                 break;
             }
