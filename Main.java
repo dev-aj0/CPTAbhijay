@@ -5,6 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         
+        // Main menu loop to keep the program running and allow the user to choose an option
         while (true) {
             con.clear();
             con.println("=== HANGMAN ===");
@@ -14,7 +15,16 @@ public class Main {
             con.println("4. Help");
             con.println("5. Quit");
             con.print("Enter choice: ");
-            int intChoice = con.readInt();
+            String strInput = con.readLine();
+            
+            // Check for secret menu option
+            if (strInput.equalsIgnoreCase("joke")) {
+                con.println("\nWhat does a baby computer call its dad? Data!");
+                con.readLine();
+                continue;
+            }
+            
+            int intChoice = Integer.parseInt(strInput);
 
             if (intChoice == 1) {
                 playGame();
@@ -29,7 +39,7 @@ public class Main {
             }
         }
     }
-
+    // Method to show the help menu when the user chooses the help option
     static void showHelp() {
         con.clear();
         con.println("=== HOW TO PLAY HANGMAN ===");
@@ -45,7 +55,7 @@ public class Main {
         con.print("\nPress enter to return to main menu...");
         con.readLine();
     }
-
+    // Method to play the game when the user chooses the play game option
     static void playGame() {
         con.clear();
         con.print("Enter your name: ");
@@ -57,23 +67,23 @@ public class Main {
             con.readLine();
             return;
         }
-
+        // Display the available themes to the user
         con.println("Available Themes:");
         for (int intI = 0; intI < strThemes.length; intI++) {
             con.println("- " + strThemes[intI]);
         }
         con.print("Enter theme filename (e.g., food.txt): ");
         String strThemeFile = con.readLine();
-
+        // Calling the loadWords method to load the words from the theme file
         String[][] strWordPairs = loadWords(strThemeFile);
         if (strWordPairs.length == 0) {
             con.println("Theme file empty or not found.");
             con.readLine();
             return;
         }
-
+        // Calling the bubbleSort method to sort the words by the random number generated
         bubbleSort(strWordPairs);
-
+        // Initializing the number of wins to 0
         int intWins = 0;
         for (int intI = 0; intI < strWordPairs.length; intI++) {
             String strWord = strWordPairs[intI][0];
