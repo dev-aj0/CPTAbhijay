@@ -1,4 +1,5 @@
 import arc.*;
+import java.awt.image.BufferedImage;
 
 public class Main {
     static Console con = new Console("Hangman by AJ", 1280, 720);
@@ -7,7 +8,14 @@ public class Main {
         
         // Main menu loop to keep the program running and allow the user to choose an option
         while (true) {
+			
+			// Display Logo
+			BufferedImage image = con.loadImage("logo.png");
+            con.drawImage(image, 1152,0);
+            con.repaint();
             con.clear();
+            
+            
             con.println("=== HANGMAN ===");
             con.println("1. Play Game");
             con.println("2. View Leaderboard");
@@ -17,6 +25,7 @@ public class Main {
             con.print("Enter choice: ");
             String strInput = con.readLine();
             
+
             // Check for secret menu option
             if (strInput.equalsIgnoreCase("joke")) {
                 con.println("\nWhat does a baby computer call its dad? Data!");
