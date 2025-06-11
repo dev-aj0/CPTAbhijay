@@ -8,13 +8,11 @@ public class Main {
         
         // Main menu loop to keep the program running and allow the user to choose an option
         while (true) {
-			
-			// Display Logo
-			BufferedImage image = con.loadImage("logo.png");
-			con.drawImage(image, 1152,0);
-			con.repaint();
-			con.clear();
-            
+            // Display Logo
+            BufferedImage image = con.loadImage("logo.png");
+            con.drawImage(image, 1152,0);
+            con.repaint();
+            con.clear();
             
             con.println("=== HANGMAN ===");
             con.println("1. Play Game");
