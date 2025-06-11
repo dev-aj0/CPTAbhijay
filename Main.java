@@ -11,9 +11,9 @@ public class Main {
 			
 			// Display Logo
 			BufferedImage image = con.loadImage("logo.png");
-            con.drawImage(image, 1152,0);
-            con.repaint();
-            con.clear();
+			con.drawImage(image, 1152,0);
+			con.repaint();
+			con.clear();
             
             
             con.println("=== HANGMAN ===");
