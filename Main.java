@@ -115,6 +115,7 @@ public class Main {
             } else {
                 break;
             }
+            // Checking input for play again or quit
             con.print("Play again? (yes/no): ");
             String strAgain = con.readLine();
             if (strAgain.equalsIgnoreCase("b")) {
@@ -124,7 +125,7 @@ public class Main {
                 break;
             }
         }
-
+        //Calling saveScore method to save the score to the leaderboard
         saveScore(strName, intWins);
     }
 
@@ -159,7 +160,7 @@ public class Main {
         con.readLine();
         return false;
     }
-
+    // Method to choose a random letter to expose when the user guesses a word
     static String exposeRandomLetter(String strWord, String strExposed) {
         int intIdx = (int)(Math.random() * strWord.length());
         while (strExposed.charAt(intIdx) != '_') {
@@ -170,7 +171,7 @@ public class Main {
         chrExposedArray[intIdx] = strWord.charAt(intIdx);
         return new String(chrExposedArray);
     }
-
+    // Method that handles the drawing of the hangman and the structure
     static void drawHangman(int intParts) {
         con.println(" +---+");
         con.println(" |   |");
@@ -214,7 +215,7 @@ public class Main {
         con.println("     |");
         con.println("=========");
     }
-
+    // Method used to view the leaderboard when the user chooses the view leaderboard option
     static void viewLeaderboard() {
         con.clear();
         String[][] strScores = new String[100][2];
@@ -250,7 +251,7 @@ public class Main {
             }
         }
         in.close();
-
+        // Calling the bubbleSortScores method to sort the scores by the score value
         bubbleSortScores(strScores, intScoreCount);
         con.println("Leaderboard:");
         for (int intI = 0; intI < intScoreCount; intI++) {
@@ -262,7 +263,7 @@ public class Main {
             return;
         }
     }
-
+    // Method used to add a new theme to the themes.txt file
     static void addTheme() {
         con.clear();
         con.print("Enter new theme filename (e.g., starwars.txt) or 'b' to go back: ");
@@ -309,7 +310,7 @@ public class Main {
             append.close();
         }
     }
-
+    // Method used to save the score to the leaderboard
     static void saveScore(String strName, int intScore) {
         TextOutputFile out = new TextOutputFile("leaderboard.txt", true);
         out.println(strName + "," + intScore);
@@ -332,7 +333,7 @@ public class Main {
         }
         return strResult;
     }
-
+    // Method used to load the words from the theme file and sort them by the random number generated
     static String[][] loadWords(String strFileName) {
         String[][] strWords = new String[100][2];
         int intWordCount = 0;
@@ -355,31 +356,45 @@ public class Main {
         }
         return strResult;
     }
-
+    // Method used to sort the words by the random number generated
     static void bubbleSort(String[][] strArr) {
         int intN = strArr.length;
+        String strWordTemp;
+        String strRandNumTemp;
+        
         for (int intI = 0; intI < intN - 1; intI++) {
             for (int intJ = 0; intJ < intN - intI - 1; intJ++) {
-                int intA = Integer.parseInt(strArr[intJ][1]);
-                int intB = Integer.parseInt(strArr[intJ + 1][1]);
-                if (intA > intB) {
-                    String[] strTemp = strArr[intJ];
-                    strArr[intJ] = strArr[intJ + 1];
-                    strArr[intJ + 1] = strTemp;
+                if (Integer.parseInt(strArr[intJ][1]) > Integer.parseInt(strArr[intJ + 1][1])) {
+                    // Swap word
+                    strWordTemp = strArr[intJ][0];
+                    strArr[intJ][0] = strArr[intJ + 1][0];
+                    strArr[intJ + 1][0] = strWordTemp;
+                    
+                    // Swap random number
+                    strRandNumTemp = strArr[intJ][1];
+                    strArr[intJ][1] = strArr[intJ + 1][1];
+                    strArr[intJ + 1][1] = strRandNumTemp;
                 }
             }
         }
     }
-
+    // Method used to sort the scores by the score value
     static void bubbleSortScores(String[][] strScores, int intCount) {
+        String strNameTemp;
+        String strScoreTemp;
+        
         for (int intI = 0; intI < intCount - 1; intI++) {
             for (int intJ = 0; intJ < intCount - intI - 1; intJ++) {
-                int intA = Integer.parseInt(strScores[intJ][1]);
-                int intB = Integer.parseInt(strScores[intJ + 1][1]);
-                if (intA < intB) {
-                    String[] strTemp = strScores[intJ];
-                    strScores[intJ] = strScores[intJ + 1];
-                    strScores[intJ + 1] = strTemp;
+                if (Integer.parseInt(strScores[intJ][1]) < Integer.parseInt(strScores[intJ + 1][1])) {
+                    // Swap name
+                    strNameTemp = strScores[intJ][0];
+                    strScores[intJ][0] = strScores[intJ + 1][0];
+                    strScores[intJ + 1][0] = strNameTemp;
+                    
+                    // Swap score
+                    strScoreTemp = strScores[intJ][1];
+                    strScores[intJ][1] = strScores[intJ + 1][1];
+                    strScores[intJ + 1][1] = strScoreTemp;
                 }
             }
         }
