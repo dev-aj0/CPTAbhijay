@@ -1,3 +1,8 @@
+//Abhijay Shandilya
+//Hangman by AJ
+//Last Modified: June 12, 2025
+//Version 1.6
+
 import arc.*;
 import java.awt.image.BufferedImage;
 
